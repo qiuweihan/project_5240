@@ -102,21 +102,21 @@ def adjust_category_by_keywords(text: str, top_categories):
                 return item["category"]
         return None
 
-    # If top-1 looks like ACCOUNT but text is clearly shipping related,
-    # prefer SHIPPING or DELIVERY if already in top-k.
-    if top_category == "ACCOUNT":
-        if any(k in text_lower for k in shipping_keywords):
-            candidate = find_candidate(["SHIPPING", "DELIVERY"])
-            if candidate:
-                return candidate
-        if any(k in text_lower for k in refund_keywords):
-            candidate = find_candidate(["REFUND"])
-            if candidate:
-                return candidate
-        if any(k in text_lower for k in payment_keywords):
-            candidate = find_candidate(["PAYMENT"])
-            if candidate:
-                return candidate
+    # Strong keyword-based correction for common business intents
+    if any(k in text_lower for k in shipping_keywords):
+        candidate = find_candidate(["SHIPPING", "DELIVERY"])
+        if candidate:
+            return candidate
+
+    if any(k in text_lower for k in refund_keywords):
+        candidate = find_candidate(["REFUND"])
+        if candidate:
+            return candidate
+
+    if any(k in text_lower for k in payment_keywords):
+        candidate = find_candidate(["PAYMENT"])
+        if candidate:
+            return candidate
 
     # If top-1 is SHIPPING/DELIVERY but text is strongly account related,
     # allow correction back to ACCOUNT if ACCOUNT is already in top-k.
