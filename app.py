@@ -12,20 +12,24 @@ def main():
 
     if st.button("Run Pipeline"):
         if user_input.strip():
-            result = run_pipeline(user_input)
+            try:
+                result = run_pipeline(user_input)
 
-            st.subheader("Predicted Category")
-            st.write(result["top_category"])
+                st.subheader("Predicted Category")
+                st.write(result["top_category"])
 
-            st.subheader("Top-3 Categories")
-            for item in result["top_categories"]:
-                st.write(f"{item['category']} — {item['probability']:.4f}")
+                st.subheader("Top-3 Categories")
+                for item in result["top_categories"]:
+                    st.write(f"{item['category']} — {item['probability']:.4f}")
 
-            st.subheader("Support Note")
-            st.write(result["support_note"])
+                st.subheader("Support Note")
+                st.write(result["support_note"])
 
-            st.subheader("Suggested Reply Template")
-            st.write(result["reply_template"])
+                st.subheader("Suggested Reply Template")
+                st.write(result["reply_template"])
+
+            except Exception as e:
+                st.error(f"An error occurred while running the pipeline: {e}")
         else:
             st.warning("Please enter a customer support message.")
 
