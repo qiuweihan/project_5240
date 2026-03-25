@@ -9,7 +9,7 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 # Paths and global resources
 # -----------------------------
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "distilbert_ticket_classifier_final"
+MODEL_REPO = "weihan4068/project_5240_ticket_classifier"
 LABEL2ID_PATH = BASE_DIR / "label2id.json"
 ID2LABEL_PATH = BASE_DIR / "id2label.json"
 
@@ -27,8 +27,8 @@ id2label = {int(k): v for k, v in id2label.items()}
 # -----------------------------
 # Load model and tokenizer
 # -----------------------------
-clf_tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-clf_model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+clf_tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO)
+clf_model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO)
 clf_model.eval()
 
 # -----------------------------
